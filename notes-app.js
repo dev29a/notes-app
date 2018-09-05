@@ -21,10 +21,11 @@ renderNotes(notes, filters)
 document.querySelector('#create-note').addEventListener('click',function(e){
     // console.log('The button was clicked')
     notes.push({
+        id: uuidv4(),
         title: '',
         body: ''
     })
-    localStorage.setItem('notes', JSON.stringify(notes))
+    saveNotes(notes)
     renderNotes(notes, filters)
 })
 

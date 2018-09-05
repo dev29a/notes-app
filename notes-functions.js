@@ -9,6 +9,23 @@ const getSavedNotes = function(){
     }
 }
 
+
+//save notes
+const saveNotes = function(notes){
+    localStorage.setItem('notes', JSON.stringify(notes))
+}
+
+//remove a note from the list
+const removeNote = function(id){
+    const noteIndex = notes.findIndex(function(note){
+        return note.id === id
+    })
+
+    if (noteIndex > -1){
+        notes.splice(noteIndex, 1)
+    }
+}
+
 //Generate the DOM structure for a note
 const generateNoteDom = function(note){
     const noteEl = document.createElement('div')
@@ -18,6 +35,11 @@ const generateNoteDom = function(note){
     //setuip remove note button
     button.textContent = 'x'
     noteEl.appendChild(button)   
+    button.addEventListener('click', function(e){
+        removeNote(note.id)
+        saveNotes(notes)
+        renderNotes(notes, filters)
+    })
 
     //setup the note title text
         if (note.title.length > 0) {
@@ -37,7 +59,7 @@ const renderNotes = function(notes, filters){
     const filteredNotes = notes.filter(function(note, index){
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
     })
-     console.log(filteredNotes)
+    //  console.log(filteredNotes)
     // Render above filetered array on page. Clear DIV #notes content before rendering to avoid duplicate rendering.
     document.querySelector('#notes').innerHTML = ''
 
