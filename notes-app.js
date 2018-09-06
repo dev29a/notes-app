@@ -9,7 +9,7 @@
 //                 }
 //             ]
 
-const notes = getSavedNotes()
+let notes = getSavedNotes()
 
 const filters = {
     searchText: ''
@@ -20,13 +20,15 @@ renderNotes(notes, filters)
 
 document.querySelector('#create-note').addEventListener('click',function(e){
     // console.log('The button was clicked')
+    const id = uuidv4()
     notes.push({
-        id: uuidv4(),
+        id: id,
         title: '',
         body: ''
     })
     saveNotes(notes)
-    renderNotes(notes, filters)
+    // renderNotes(notes, filters)
+    location.assign(`/edit.htm#${id}`)
 })
 
 document.querySelector('#search-text').addEventListener('input', function(e){
@@ -35,6 +37,12 @@ document.querySelector('#search-text').addEventListener('input', function(e){
     renderNotes(notes, filters)
 })
 
+window.addEventListener('storage', function(e){
+    if(e.key === 'notes'){
+        notes = JSON.parse(e.newValue)
+        renderNotes(notes, filters)
+    }
+})
 
 
 // document.querySelector('#remove-all').addEventListener('click',function(e){

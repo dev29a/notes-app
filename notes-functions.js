@@ -29,7 +29,7 @@ const removeNote = function(id){
 //Generate the DOM structure for a note
 const generateNoteDom = function(note){
     const noteEl = document.createElement('div')
-    const textEl = document.createElement('span') 
+    const textEl = document.createElement('a') 
     const button = document.createElement('button')
 
     //setuip remove note button
@@ -48,7 +48,7 @@ const generateNoteDom = function(note){
         else {
             textEl.textContent = 'Unnamed note'
         }
-     
+    textEl.setAttribute('href', `/edit.htm#${note.id}`) 
     noteEl.appendChild(textEl)    
     return noteEl    
 }
