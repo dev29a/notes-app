@@ -16,27 +16,27 @@ titleElement.value = note.title
 bodyElement.value = note.body
 dateElement.textContent = generateLastEdited(note.updatedAt)
 
-titleElement.addEventListener('input', function(e){
-    note.title = this.value //e.target.value
+titleElement.addEventListener('input', (e) => {
+    note.title =  e.target.value //this.value
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
-bodyElement.addEventListener('input', function(e){
-    note.body = this.value //e.target.value
+bodyElement.addEventListener('input', (e) => {
+    note.body = e.target.value //this.value
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
-removeElement.addEventListener('click', function(e){
+removeElement.addEventListener('click', (e) => {
     removeNote(note.id)
     saveNotes(notes)
     location.assign('/index.htm')
 })
 
-window.addEventListener('storage', function(e){
+window.addEventListener('storage', (e) => {
     if(e.key === 'notes'){
         notes = JSON.parse(e.newValue)
         note = notes.find(function(note){
